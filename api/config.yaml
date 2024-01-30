@@ -1,0 +1,21 @@
+name: Json Rest Server
+port: 8080
+host: 0.0.0.0
+database: database.json
+#Indica se você quer que inicie um servidor de socket junto com o servidor rest (true/false)
+enableSocket: true 
+#Indica a porta de acesso do socket padrão (Websocket não utiliza essa porta):  8081
+socketPort: 8081
+broadcastProvider: socket
+idType: uuid
+
+auth:
+  jwtSecret: cwsMXDtuP447WZQ63nM4dWZ3RppyMl
+  jwtExpire: 3600
+  urlSkip:
+    - /images/:
+        method: get
+    - /users:
+        method: post
+    - /adm_users:
+        method: post
