@@ -1,6 +1,8 @@
+import 'package:asyncstate/asyncstate.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_teste/home_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_getit/flutter_getit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,29 +14,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+    return LabClinicasCoreConfig(
+      title: 'Lab Clinicas Teste',
+      pagesBuilders: [
+        FlutterGetItPageBuilder(page: (_) => const MyHomePage(title: 'Flutter Get'), path: '/'),
+      ],
+    ) ;
   }
 }
 
@@ -68,8 +53,9 @@ class _MyHomePageState extends State<MyHomePage> with MessageViewMixin {
 
 
   void _incrementCounter() {
-    controller.fazerAlgo();
-    
+    //controller.fazerAlgo();
+
+    Future.delayed(const Duration(seconds: 3)).asyncLoader();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
