@@ -7,7 +7,9 @@ class SplashPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Image.asset('assets/images/logo_vertical.png'),
+        child: Image.asset(
+          'assets/images/logo_vertical.png',
+        ),
       ),
     );
   }
