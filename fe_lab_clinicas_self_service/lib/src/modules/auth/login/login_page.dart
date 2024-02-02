@@ -1,6 +1,11 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
+import 'package:fe_lab_clinicas_self_service/src/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_getit/flutter_getit.dart';
+import 'package:signals_flutter/signals_flutter.dart';
 import 'package:validatorless/validatorless.dart';
+
+import 'widgets/login_textformfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,15 +14,27 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  final formKey = GlobalKey<FormState>();
-  final emailEC = TextEditingController();
-  final passwordEC = TextEditingController();
+class _LoginPageState extends State<LoginPage> with MessageViewMixin {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final controller = Injector.get<LoginController>();
+
+  @override
+  void initState() {
+    messageListener(controller);
+    effect(() {
+      if(controller.logged) {
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
-    emailEC.dispose();
-    passwordEC.dispose();
+    _emailEC.dispose();
+    _passwordEC.dispose();
     super.dispose();
   }
 
@@ -46,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: Form(
-                key: formKey,
+                key: _formKey,
                 child: Column(
                   children: [
                     const Text(
@@ -56,23 +73,35 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 32,
                     ),
-                    TextFormField(
-                      controller: emailEC,
+                    LoginTextformfield(
+                      title: "Email",
+                      hintText: 'Digite um E-mail valido',
+                      controller: _emailEC,
+                      onFieldSubmitted: (_) => _enterButton(),
                       validator: Validatorless.multiple([
                         Validatorless.required('Email Obrigatório'),
                         Validatorless.email('Email inválido')
                       ]),
-                      decoration: const InputDecoration(label: Text('Email')),
+                      keyboardType: TextInputType.emailAddress,
                     ),
                     const SizedBox(
                       height: 24,
                     ),
-                    TextFormField(
-                      obscureText: true,
-                      controller: passwordEC,
-                      validator: Validatorless.required('Senha obrigatória'),
-                      decoration:
-                          const InputDecoration(label: Text('Password')),
+                    Watch(
+                      (_) {
+                        return LoginTextformfield(
+                          title: 'Password',
+                          obscureControll: true, // habilita o obscure e seus funcões
+                          obscureText: controller.obscurePassword,
+                          controller: _passwordEC,
+                          validator:
+                              Validatorless.required('Senha obrigatória'),
+                          hintText: 'Digite uma senha valida',
+                          passwordToggle: () {
+                            controller.passwordToggle();
+                          },
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 32,
@@ -81,12 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: sizeOf.width * .8,
                       height: 48,
                       child: ElevatedButton(
-                        onPressed: () {
-                          final valid = formKey.currentState?.validate() ?? false;
-                          if(valid) {
-                            
-                          }
-                        },
+                        onPressed: _enterButton,
                         child: const Text('ENTRAR'),
                       ),
                     )
@@ -98,5 +122,14 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void _enterButton() {
+    final formValid = _formKey.currentState?.validate() ?? false;
+
+    if (formValid) {
+      FocusScope.of(context).unfocus();
+      controller.login(_emailEC.text, _passwordEC.text);
+    }
   }
 }
