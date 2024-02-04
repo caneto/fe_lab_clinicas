@@ -11,40 +11,42 @@ class SelfServicePage extends StatefulWidget {
   State<SelfServicePage> createState() => _SelfServicePageState();
 }
 
-class _SelfServicePageState extends State<SelfServicePage> with MessageViewMixin {
-
+class _SelfServicePageState extends State<SelfServicePage>
+    with MessageViewMixin {
   final controller = Injector.get<SelfServiceController>();
 
   @override
   void initState() {
     messageListener(controller);
-    WidgetsBinding.instance.addPostFrameCallback((_) { 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.startProcess();
       effect(() {
         var baseRoute = '/self-service/';
         final step = controller.step;
 
-        switch(step) {
-          
+        switch (step) {
           case FormSteps.none:
-          return;
+            return;
           case FormSteps.whoIAm:
-          return;
+            baseRoute += 'whoIAm';
           case FormSteps.findPatient:
-          return;
+            baseRoute += 'findPatient';
           case FormSteps.patient:
-          return;
+            baseRoute += 'patient';
           case FormSteps.documents:
-          return;
+            baseRoute += 'documents';
           case FormSteps.done:
-          return;
+            baseRoute += 'done';
           case FormSteps.restart:
-          return;          
+            return;
         }
+
+        Navigator.of(context).pushNamed(baseRoute);
       });
     });
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

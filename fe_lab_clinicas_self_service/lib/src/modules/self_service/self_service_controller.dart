@@ -16,5 +16,9 @@ class SelfServiceController with MessageStateMixin {
   final _step = ValueSignal(FormSteps.none);
 
   FormSteps get step => _step();
+
+  void startProcess() {
+    _step.forceUpdate(FormSteps.whoIAm);
+  }
   
 }
