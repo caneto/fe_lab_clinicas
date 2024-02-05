@@ -1,4 +1,5 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
+import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_elevatedbutton.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
   void initState() {
     messageListener(controller);
     effect(() {
-      if(controller.logged) {
+      if (controller.logged) {
         Navigator.of(context).pushReplacementNamed('/home');
       }
     });
@@ -91,7 +92,8 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
                       (_) {
                         return LoginTextformfield(
                           title: 'Password',
-                          obscureControll: true, // habilita o obscure e seus funcões
+                          obscureControll:
+                              true, // habilita o obscure e seus funcões
                           obscureText: controller.obscurePassword,
                           controller: _passwordEC,
                           validator:
@@ -106,14 +108,12 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
                     const SizedBox(
                       height: 32,
                     ),
-                    SizedBox(
+                    AppDefaultElevatedButton(
+                      onPressed: _enterButton,
+                      label: 'ENTRAR',
                       width: sizeOf.width * .8,
                       height: 48,
-                      child: ElevatedButton(
-                        onPressed: _enterButton,
-                        child: const Text('ENTRAR'),
-                      ),
-                    )
+                    ),
                   ],
                 ),
               ),
