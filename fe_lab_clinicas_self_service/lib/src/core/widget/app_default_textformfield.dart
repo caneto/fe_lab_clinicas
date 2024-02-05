@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppDefaultTextformfield extends StatelessWidget {
   final String title;
@@ -10,6 +11,7 @@ class AppDefaultTextformfield extends StatelessWidget {
   final String hintText;
   final void Function(String)? onFieldSubmitted;
   final VoidCallback? passwordToggle;
+  final List<TextInputFormatter>? inputFormatters;
   
   const AppDefaultTextformfield({
     super.key,
@@ -21,7 +23,8 @@ class AppDefaultTextformfield extends StatelessWidget {
     this.obscureText = false,
     this.onFieldSubmitted, 
     this.passwordToggle, 
-    this.obscureControll = false,
+    this.obscureControll = false, 
+    this.inputFormatters,
   });
 
   @override
@@ -30,6 +33,7 @@ class AppDefaultTextformfield extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          inputFormatters: inputFormatters,
           keyboardType: keyboardType,
           controller: controller,
           validator: validator,
