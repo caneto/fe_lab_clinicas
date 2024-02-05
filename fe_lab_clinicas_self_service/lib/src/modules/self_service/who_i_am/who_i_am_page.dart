@@ -1,7 +1,7 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_elevatedbutton.dart';
+import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_textformfield.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
-import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/self_service_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:validatorless/validatorless.dart';
@@ -80,7 +80,7 @@ class _WhoIAmPageState extends State<WhoIAmPage> {
                         const SizedBox(
                           height: 48,
                         ),
-                        SelfServiceTextformfield(
+                        AppDefaultTextformfield(
                           controller: _nameEC,
                           title: 'Digite seu nome',
                           onFieldSubmitted: (_) => _continuarButton(),
@@ -91,7 +91,7 @@ class _WhoIAmPageState extends State<WhoIAmPage> {
                         const SizedBox(
                           height: 24,
                         ),
-                        SelfServiceTextformfield(
+                        AppDefaultTextformfield(
                           controller: _lastNameEC,
                           title: 'Digite seu sobrenome',
                           onFieldSubmitted: (_) => _continuarButton(),

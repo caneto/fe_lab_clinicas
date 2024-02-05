@@ -1,12 +1,11 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_elevatedbutton.dart';
+import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_textformfield.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/auth/login/login_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 import 'package:validatorless/validatorless.dart';
-
-import 'widgets/login_textformfield.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -74,7 +73,7 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
                     const SizedBox(
                       height: 32,
                     ),
-                    LoginTextformfield(
+                    AppDefaultTextformfield(
                       title: "Email",
                       hintText: 'Digite um E-mail valido',
                       controller: _emailEC,
@@ -90,7 +89,7 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
                     ),
                     Watch(
                       (_) {
-                        return LoginTextformfield(
+                        return AppDefaultTextformfield(
                           title: 'Password',
                           obscureControll:
                               true, // habilita o obscure e seus funcões

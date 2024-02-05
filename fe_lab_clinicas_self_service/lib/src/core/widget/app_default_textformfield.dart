@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class LoginTextformfield extends StatelessWidget {
+class AppDefaultTextformfield extends StatelessWidget {
   final String title;
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
@@ -11,7 +11,7 @@ class LoginTextformfield extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final VoidCallback? passwordToggle;
   
-  const LoginTextformfield({
+  const AppDefaultTextformfield({
     super.key,
     required this.title,
     required this.controller,
