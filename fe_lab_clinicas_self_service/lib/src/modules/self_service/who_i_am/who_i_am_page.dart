@@ -1,5 +1,5 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
-import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_elevatedbutton.dart';
+import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_especial_button.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_textformfield.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
 import 'package:flutter/material.dart';
@@ -118,7 +118,8 @@ class _WhoIAmPageState extends State<WhoIAmPage> {
                           const SizedBox(
                             height: 24,
                           ),
-                          AppDefaultElevatedButton(
+                          AppDefaultEspecialButton(
+                            tipoBotao: true,
                             onPressed: _continuarButton,
                             label: 'CONTINUAR',
                             width: sizeOf.width * .8,

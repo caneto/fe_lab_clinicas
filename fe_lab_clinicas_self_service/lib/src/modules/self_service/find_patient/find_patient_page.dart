@@ -1,8 +1,9 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
-import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_elevatedbutton.dart';
+import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_especial_button.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_textformfield.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/find_patient/find_patient_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
+import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_getit/flutter_getit.dart';
@@ -45,24 +46,7 @@ class _FindPatientPageState extends State<FindPatientPage> with MessageViewMixin
     final sizeOf = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      appBar: LabClinicasCoreAppBar(
-        actions: [
-          PopupMenuButton(
-            child: const IconPopupMenuWidget(),
-            itemBuilder: (context) {
-              return [
-                const PopupMenuItem<int>(
-                  value: 1,
-                  child: Text('Reiniciar Processo'),
-                ),
-              ];
-            },
-            onSelected: (value) async {
-              Injector.get<SelfServiceController>().restartProgress();
-            },
-          ),
-        ],
-      ),
+      appBar: LabClinicasSelfServiceAppBar(),
       body: LayoutBuilder(
         builder: (_, constrains) {
           return SingleChildScrollView(
@@ -133,7 +117,8 @@ class _FindPatientPageState extends State<FindPatientPage> with MessageViewMixin
                         const SizedBox(
                            height: 24,
                         ),
-                        AppDefaultElevatedButton(
+                        AppDefaultEspecialButton(
+                          tipoBotao: true,
                           onPressed: _continuarButton,
                           label: 'CONTINUAR',
                           width: sizeOf.width * .8,
