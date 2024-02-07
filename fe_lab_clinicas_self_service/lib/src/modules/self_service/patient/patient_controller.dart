@@ -10,7 +10,7 @@ class PatientController with MessageStateMixin {
 
   final PatientRepository _repository;
   PatientModel? patient;
-  
+
   final _nextStep = signal<bool>(false);
   bool get nextStep => _nextStep();
 
@@ -27,6 +27,18 @@ class PatientController with MessageStateMixin {
       case Right():
         showInfo('Paciente atualizado com Sucesso');
         patient = model;
+        goNextStep();
+    }
+  }
+
+  Future<void> savaAndNext(RegisterPatientModel registerPatientModel) async {
+    final result = await _repository.register(registerPatientModel);
+    switch(result) {
+      case Left():
+          showError('Erro ao cadastrar paciente, chame o atendente');
+      case Right(value: final patient):
+        showInfo('Paciente cadastrado com Sucesso');
+        this.patient = patient;
         goNextStep();
     }
   }

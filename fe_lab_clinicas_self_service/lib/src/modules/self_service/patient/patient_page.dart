@@ -362,8 +362,12 @@ class _PatientPageState extends State<PatientPage>
     if (formValid) {
       FocusScope.of(context).unfocus();
 
-      controller
-          .updateAndNext(updatePatient(selfServiceController.model.patient!));
+      if (patientFound) {
+        controller
+            .updateAndNext(updatePatient(selfServiceController.model.patient!));
+      } else {
+        controller.savaAndNext(createPatientRegister());
+      }
     }
   }
 
