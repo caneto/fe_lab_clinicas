@@ -85,15 +85,14 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   children: [
                     Expanded(
                       child: AppDefaultEspecialButton(
+                        sizeBoxOn: false,
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.red,
                           side: const BorderSide(color: Colors.red),
-                          //fixedSize: const Size.fromHeight(48) => o custom define 
+                          fixedSize: const Size.fromHeight(48) 
                         ),
                         onPressed: () {},
                         label: 'REMOVER TODAS',
-                        width: sizeOf.width * .85,
-                        height: 48,
                         tipoBotao: false,
                       ),
                     ),
@@ -102,15 +101,13 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     ),
                     Expanded(
                       child: AppDefaultEspecialButton(
+                        sizeBoxOn: false,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: LabClinicasTheme.orangeColor,
-                          //fixedSize: const Size.fromHeight(48) => o custom define
+                          fixedSize: const Size.fromHeight(48) 
                         ),
                         onPressed: () {},
-                        label: 'FINALIZAR',
-                        width: sizeOf.width * .85,
-                        height: 48,
-                        tipoBotao: true,
+                        label: 'FINALIZAR',                        
                       ),
                     ),
                   ],

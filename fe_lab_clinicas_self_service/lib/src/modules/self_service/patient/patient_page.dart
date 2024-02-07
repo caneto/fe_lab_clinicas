@@ -337,7 +337,6 @@ class _PatientPageState extends State<PatientPage>
                         ),
                         Expanded(
                           child: AppDefaultEspecialButton(
-                            tipoBotao: true,
                             onPressed: _continuar,
                             label: 'CONTINUAR',
                             height: 48,
