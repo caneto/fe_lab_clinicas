@@ -12,6 +12,7 @@ class AppDefaultTextformfield extends StatelessWidget {
   final void Function(String)? onFieldSubmitted;
   final VoidCallback? passwordToggle;
   final List<TextInputFormatter>? inputFormatters;
+  final bool readOnly;
   
   const AppDefaultTextformfield({
     super.key,
@@ -25,6 +26,7 @@ class AppDefaultTextformfield extends StatelessWidget {
     this.passwordToggle, 
     this.obscureControll = false, 
     this.inputFormatters,
+    this.readOnly = false,
   });
 
   @override
@@ -33,6 +35,7 @@ class AppDefaultTextformfield extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          readOnly: readOnly,
           inputFormatters: inputFormatters,
           keyboardType: keyboardType,
           controller: controller,

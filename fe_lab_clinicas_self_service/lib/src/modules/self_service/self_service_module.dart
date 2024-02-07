@@ -10,7 +10,7 @@ import 'package:flutter_getit/flutter_getit.dart';
 import 'dcuments/documents_page.dart';
 import 'dcuments/scan/documents_scan_page.dart';
 import 'dcuments/scan_confirm/documents_scan_confirm_page.dart';
-import 'patient/patient_page.dart';
+import 'patient/patient_router.dart';
 import 'self_service_page.dart';
 import 'who_i_am/who_i_am_page.dart';
 
@@ -30,7 +30,7 @@ class SelfServiceModule extends FlutterGetItModule {
     '/': (context) => const SelfServicePage(),
     '/whoIAm': (context) => const WhoIAmPage(),
     '/findPatient': (context) => const FindPatientRouter(),
-    '/patient': (context) => const PatientPage(),
+    '/patient': (context) => const PatientRouter(),
     '/documents': (context) => const DocumentsPage(),
     '/documents/scan': (context) => const DocumentsScanPage(),
     '/documents/scan/confirm': (context) => const DocumentsScanConfirmPage(),

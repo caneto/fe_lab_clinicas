@@ -2,10 +2,15 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_especial_button.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_textformfield.dart';
+import 'package:fe_lab_clinicas_self_service/src/model/self_service_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/modules/self_service/patient/patient_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/patient/patient_form_controller.dart';
+import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_getit/flutter_getit.dart';
+import 'package:signals_flutter/signals_flutter.dart';
 import 'package:validatorless/validatorless.dart';
 
 class PatientPage extends StatefulWidget {
@@ -15,8 +20,32 @@ class PatientPage extends StatefulWidget {
   State<PatientPage> createState() => _PatientPageState();
 }
 
-class _PatientPageState extends State<PatientPage> with PatientFormController {
+class _PatientPageState extends State<PatientPage>
+    with PatientFormController, MessageViewMixin {
   final _formKey = GlobalKey<FormState>();
+  final selfServiceController = Injector.get<SelfServiceController>();
+  final PatientController controller = Injector.get<PatientController>();
+
+  late bool patientFound;
+  late bool enableForm;
+
+  @override
+  void initState() {
+    messageListener(controller);
+
+    final SelfServiceModel(:patient) = selfServiceController.model;
+
+    patientFound = patient != null;
+    enableForm = !patientFound;
+    initializeForm(patient);
+    effect(() {
+      if (controller.nextStep) {
+        selfServiceController.updatePatientAndDocument(controller.patient);
+      }
+    });
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -45,30 +74,50 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
               key: _formKey,
               child: Column(
                 children: [
-                  Image.asset('assets/images/check_icon.png'),
+                  Visibility(
+                    visible: patientFound,
+                    replacement: Image.asset('assets/images/lupa_icon.png'),
+                    child: Image.asset('assets/images/check_icon.png'),
+                  ),
                   const SizedBox(
                     height: 24,
                   ),
-                  const Text(
-                    'Cadastro encontrado',
-                    style: LabClinicasTheme.titleSmallStyle,
+                  Visibility(
+                    visible: patientFound,
+                    replacement: const Text(
+                      'Cadastro não encontrado',
+                      style: LabClinicasTheme.titleSmallStyle,
+                    ),
+                    child: const Text(
+                      'Cadastro encontrado',
+                      style: LabClinicasTheme.titleSmallStyle,
+                    ),
                   ),
                   const SizedBox(
                     height: 32,
                   ),
-                  Text(
-                    'Confirma os dados do seu cadastro',
-                    style: LabClinicasTheme.subTitleSmallStyle.copyWith(
-                      fontSize: 16,
+                  Visibility(
+                    visible: patientFound,
+                    replacement: Text(
+                      'Preencha o formulario abaixo para fazer o seu cadastro',
+                      style: LabClinicasTheme.subTitleSmallStyle.copyWith(
+                        fontSize: 16,
+                      ),
+                    ),
+                    child: Text(
+                      'Confirma os dados do seu cadastro',
+                      style: LabClinicasTheme.subTitleSmallStyle.copyWith(
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   const SizedBox(
                     height: 24,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: nameEC,
                     title: 'Nome paciente',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     validator: Validatorless.required('Nome Obrigatorio'),
                     hintText: 'Digite seu nome para continuar',
                     keyboardType: TextInputType.name,
@@ -77,9 +126,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: emailEC,
                     title: 'E-Mail',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     validator: Validatorless.multiple([
                       Validatorless.required('E-Mail Obrigatorio'),
                       Validatorless.email('Email inválido'),
@@ -91,13 +140,13 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: phoneEC,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       TelefoneInputFormatter(),
                     ],
                     title: 'Telefone de Contato',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     validator: Validatorless.required(
                         'Telefone de Contato Obrigatorio'),
                     hintText: 'Digite seu telefone de contato para continuar',
@@ -107,13 +156,13 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: documentEC,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       CpfInputFormatter()
                     ],
                     title: 'Digite seu CPF',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     validator: Validatorless.required('CPF Obrigatorio'),
                     hintText: 'Digite seu cpf para continuar',
                     keyboardType: TextInputType.name,
@@ -122,13 +171,13 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: cepEC,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       CepInputFormatter(),
                     ],
                     title: 'CEP',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     validator: Validatorless.required('CEP Obrigatorio'),
                     hintText: 'Digite seu cep para continuar',
                     keyboardType: TextInputType.name,
@@ -141,9 +190,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                       Flexible(
                         flex: 3,
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: streetEC,
                           title: 'Endereço',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           validator:
                               Validatorless.required('Endereço Obrigatorio'),
                           hintText: 'Digite seu endereço para continuar',
@@ -156,9 +205,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                       Flexible(
                         flex: 1,
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: numberEC,
                           title: 'Numero',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           validator:
                               Validatorless.required('Numero Obrigatorio'),
                           hintText: 'Digite seu numero para continuar',
@@ -174,9 +223,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     children: [
                       Expanded(
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: complementEC,
                           title: 'Complemento',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           hintText:
                               'Digite seu complemento caso o tenhha  para continuar',
                           keyboardType: TextInputType.name,
@@ -187,9 +236,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                       ),
                       Expanded(
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: streetEC,
                           title: 'Estado',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           validator:
                               Validatorless.required('Estado Obrigatorio'),
                           hintText:
@@ -206,9 +255,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     children: [
                       Expanded(
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: cityEC,
                           title: 'Cidade',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           validator:
                               Validatorless.required('Cidade Obrigatoria'),
                           hintText: 'Digite sua cidade para continuar',
@@ -220,9 +269,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                       ),
                       Expanded(
                         child: AppDefaultTextformfield(
+                          readOnly: !enableForm,
                           controller: districtEC,
                           title: 'Bairro',
-                          onFieldSubmitted: (_) => _continuarButton(),
                           validator:
                               Validatorless.required('Bairro Obrigatorio'),
                           hintText: 'Digite o bairro para continuar',
@@ -235,9 +284,9 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: guardianEC,
                     title: 'Responsável',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     hintText: 'Digite o responsaval caso tenha para continuar',
                     keyboardType: TextInputType.name,
                   ),
@@ -245,13 +294,13 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                     height: 16,
                   ),
                   AppDefaultTextformfield(
+                    readOnly: !enableForm,
                     controller: guardianIdentificationNumberEC,
                     inputFormatters: [
                       FilteringTextInputFormatter.digitsOnly,
                       CpfInputFormatter(),
                     ],
                     title: 'Documento de identidade',
-                    onFieldSubmitted: (_) => _continuarButton(),
                     hintText:
                         'Digite o documento de identidade do responsavel caso tenha para continuar',
                     keyboardType: TextInputType.name,
@@ -259,30 +308,44 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
                   const SizedBox(
                     height: 32.5,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppDefaultEspecialButton(
-                          tipoBotao: false,
-                          onPressed: () {},
-                          label: 'EDITAR',
-                          height: 48,
-                          width: sizeOf.width * .2,
+                  Visibility(
+                    visible: !enableForm,
+                    replacement: AppDefaultEspecialButton(
+                      tipoBotao: true,
+                      onPressed: _salvarecontinuar,
+                      label: !patientFound ? 'CONTINUAR' : 'SALVAR E CONTINUAR',
+                      height: 48,
+                      width: double.infinity,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: AppDefaultEspecialButton(
+                            tipoBotao: false,
+                            onPressed: () {
+                              setState(() {
+                                enableForm = true;
+                              });
+                            },
+                            label: 'EDITAR',
+                            height: 48,
+                            width: sizeOf.width * .2,
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      Expanded(
-                        child: AppDefaultEspecialButton(
-                          tipoBotao: true,
-                          onPressed: () {},
-                          label: 'CONTINUAR',
-                          height: 48,
-                          width: sizeOf.width * .2,
+                        const SizedBox(
+                          width: 17,
                         ),
-                      ),
-                    ],
+                        Expanded(
+                          child: AppDefaultEspecialButton(
+                            tipoBotao: true,
+                            onPressed: _continuar,
+                            label: 'CONTINUAR',
+                            height: 48,
+                            width: sizeOf.width * .2,
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),
@@ -293,11 +356,19 @@ class _PatientPageState extends State<PatientPage> with PatientFormController {
     );
   }
 
-  void _continuarButton() {
+  void _salvarecontinuar() {
     final formValid = _formKey.currentState?.validate() ?? false;
 
     if (formValid) {
       FocusScope.of(context).unfocus();
+
+      controller
+          .updateAndNext(updatePatient(selfServiceController.model.patient!));
     }
+  }
+
+  void _continuar() {
+    controller.patient = selfServiceController.model.patient;
+    controller.goNextStep();
   }
 }
