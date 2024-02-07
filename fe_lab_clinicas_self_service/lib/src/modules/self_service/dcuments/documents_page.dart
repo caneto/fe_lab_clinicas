@@ -1,5 +1,6 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_especial_button.dart';
+import 'package:fe_lab_clinicas_self_service/src/model/self_service_model.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/dcuments/widgets/document_box_widget.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';
@@ -13,13 +14,25 @@ class DocumentsPage extends StatefulWidget {
   State<DocumentsPage> createState() => _DocumentsPageState();
 }
 
-class _DocumentsPageState extends State<DocumentsPage> {
-  final _formKey = GlobalKey<FormState>();
+class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
   final selfServiceController = Injector.get<SelfServiceController>();
+
+  @override
+  void initState() {
+    messageListener(selfServiceController);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final sizeOf = MediaQuery.sizeOf(context);
+    final documents = selfServiceController.model.documents;
+
+    final totalHealthInsuranceCard =
+        documents?[DocumentType.healthInsuranceCard]?.length ?? 0;
+    final totalMedicalOrder =
+        documents?[DocumentType.medicalOrder]?.length ?? 0;
+
     return Scaffold(
       appBar: LabClinicasSelfServiceAppBar(),
       body: Align(
@@ -61,19 +74,39 @@ class _DocumentsPageState extends State<DocumentsPage> {
                   child: Row(
                     children: [
                       DocumentBoxWidget(
-                        uploaded: true,
+                        uploaded: totalHealthInsuranceCard > 0,
                         icon: Image.asset('assets/images/id_card.png'),
                         label: 'CARTEIRINHA',
-                        totalFiles: 0,
+                        totalFiles: totalHealthInsuranceCard,
+                        onTap: () async {
+                          final filePath = await Navigator.of(context)
+                              .pushNamed('/self-service/documents/scan');
+                          if (filePath != null && filePath != '') {
+                            selfServiceController.registerDocument(
+                                DocumentType.healthInsuranceCard,
+                                filePath.toString());
+                            setState(() {});
+                          }
+                        },
                       ),
                       const SizedBox(
                         width: 24,
                       ),
                       DocumentBoxWidget(
-                        uploaded: false,
+                        uploaded: totalMedicalOrder > 0,
                         icon: Image.asset('assets/images/document.png'),
                         label: 'PEDIDO MÉDICO',
-                        totalFiles: 0,
+                        totalFiles: totalMedicalOrder,
+                        onTap: () async {
+                          final filePath = await Navigator.of(context)
+                              .pushNamed('/self-service/documents/scan');
+                          if (filePath != null && filePath != '') {
+                            selfServiceController.registerDocument(
+                                DocumentType.medicalOrder,
+                                filePath.toString());
+                            setState(() {});
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -81,36 +114,39 @@ class _DocumentsPageState extends State<DocumentsPage> {
                 const SizedBox(
                   height: 24,
                 ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppDefaultEspecialButton(
-                        sizeBoxOn: false,
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.red,
-                          side: const BorderSide(color: Colors.red),
-                          fixedSize: const Size.fromHeight(48) 
+                Visibility(
+                  visible: totalMedicalOrder > 0 && totalHealthInsuranceCard > 0,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: AppDefaultEspecialButton(
+                          sizeBoxOn: false,
+                          style: OutlinedButton.styleFrom(
+                              foregroundColor: Colors.red,
+                              side: const BorderSide(color: Colors.red),
+                              fixedSize: const Size.fromHeight(48)),
+                          onPressed: () {
+                            selfServiceController.clearDocuments();
+                          },
+                          label: 'REMOVER TODAS',
+                          tipoBotao: false,
                         ),
-                        onPressed: () {},
-                        label: 'REMOVER TODAS',
-                        tipoBotao: false,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: AppDefaultEspecialButton(
-                        sizeBoxOn: false,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: LabClinicasTheme.orangeColor,
-                          fixedSize: const Size.fromHeight(48) 
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Expanded(
+                        child: AppDefaultEspecialButton(
+                          sizeBoxOn: false,
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: LabClinicasTheme.orangeColor,
+                              fixedSize: const Size.fromHeight(48)),
+                          onPressed: () {},
+                          label: 'FINALIZAR',
                         ),
-                        onPressed: () {},
-                        label: 'FINALIZAR',                        
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 )
               ],
             ),
@@ -121,18 +157,14 @@ class _DocumentsPageState extends State<DocumentsPage> {
   }
 
   void _salvarecontinuar() {
-    final formValid = _formKey.currentState?.validate() ?? false;
+    FocusScope.of(context).unfocus();
 
-    if (formValid) {
-      FocusScope.of(context).unfocus();
-
-      //if (patientFound) {
-      //controller
-      //  .updateAndNext(updatePatient(selfServiceController.model.patient!));
-      //} else {
-      //controller.savaAndNext(createPatientRegister());
-      //}
-    }
+    //if (patientFound) {
+    //controller
+    //  .updateAndNext(updatePatient(selfServiceController.model.patient!));
+    //} else {
+    //controller.savaAndNext(createPatientRegister());
+    //}
   }
 
   void _continuar() {
