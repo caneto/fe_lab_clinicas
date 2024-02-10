@@ -156,19 +156,4 @@ class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
     );
   }
 
-  void _salvarecontinuar() {
-    FocusScope.of(context).unfocus();
-
-    //if (patientFound) {
-    //controller
-    //  .updateAndNext(updatePatient(selfServiceController.model.patient!));
-    //} else {
-    //controller.savaAndNext(createPatientRegister());
-    //}
-  }
-
-  void _continuar() {
-    //controller.patient = selfServiceController.model.patient;
-    //controller.goNextStep();
-  }
 }

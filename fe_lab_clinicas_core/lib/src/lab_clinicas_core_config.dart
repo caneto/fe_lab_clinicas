@@ -34,6 +34,9 @@ class LabClinicasCoreConfig extends StatelessWidget {
         return AsyncStateBuilder(
           loader: LabClienicasLoader(),
           builder: (navigatorObserver) {
+            if(didStart != null) {
+              didStart!();
+            }
             return MaterialApp(
               theme: LabClinicasTheme.lightTheme,
               darkTheme: LabClinicasTheme.darkTheme,
