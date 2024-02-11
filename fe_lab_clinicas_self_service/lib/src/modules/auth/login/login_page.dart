@@ -19,11 +19,12 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
   final controller = Injector.get<LoginController>();
+  late final EffectCleanup effectCleanup;
 
   @override
   void initState() {
     messageListener(controller);
-    effect(() {
+    effectCleanup = effect(() {
       if (controller.logged) {
         Navigator.of(context).pushReplacementNamed('/home');
       }
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
   void dispose() {
     _emailEC.dispose();
     _passwordEC.dispose();
+    effectCleanup();
     super.dispose();
   }
 
