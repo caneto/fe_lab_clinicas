@@ -12,11 +12,11 @@ class DocumentsScanPage extends StatefulWidget {
 }
 
 class _DocumentsScanPageState extends State<DocumentsScanPage> {
-  late CameraController casmeraController;
+  late CameraController cameraController;
 
   @override
   void initState() {
-    casmeraController = CameraController(
+    cameraController = CameraController(
       Injector.get<List<CameraDescription>>().first,
       ResolutionPreset.ultraHigh,
     );
@@ -64,7 +64,7 @@ class _DocumentsScanPageState extends State<DocumentsScanPage> {
                   height: 24,
                 ),
                 FutureBuilder(
-                  future: casmeraController.initialize(),
+                  future: cameraController.initialize(),
                   builder: (context, snapshot) {
                     switch (snapshot) {
                       case AsyncSnapshot(
@@ -75,10 +75,13 @@ class _DocumentsScanPageState extends State<DocumentsScanPage> {
                           child: CircularProgressIndicator.adaptive(),
                         );
                       case AsyncSnapshot(connectionState: ConnectionState.done):
-                        if(casmeraController.value.isInitialized) {
-                          
+                        if (cameraController.value.isInitialized) {
+                          return CameraPreview(cameraController);
                         }
                     }
+                    return const Center(
+                      child: Text('Erro ao carregar camerca'),
+                    );
                   },
                 ),
               ],
