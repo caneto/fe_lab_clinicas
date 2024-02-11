@@ -14,13 +14,14 @@ class SelfServicePage extends StatefulWidget {
 class _SelfServicePageState extends State<SelfServicePage>
     with MessageViewMixin {
   final controller = Injector.get<SelfServiceController>();
+  late final EffectCleanup effectCleanup;
 
   @override
   void initState() {
     messageListener(controller);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.startProcess();
-      effect(() {
+      effectCleanup = effect(() {
         var baseRoute = '/self-service/';
         final step = controller.step;
 
@@ -47,6 +48,12 @@ class _SelfServicePageState extends State<SelfServicePage>
       });
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    effectCleanup();
+    super.dispose();
   }
 
   @override
