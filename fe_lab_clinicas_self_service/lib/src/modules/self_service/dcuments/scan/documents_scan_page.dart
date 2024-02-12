@@ -1,3 +1,4 @@
+import 'package:asyncstate/asyncstate.dart';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
@@ -104,16 +105,26 @@ class _DocumentsScanPageState extends State<DocumentsScanPage> {
                   },
                 ),
                 const SizedBox(
-                   height: 30,
+                  height: 30,
                 ),
                 AppDefaultEspecialButton(
                   sizeBoxOn: true,
-                  width: sizeOf.width *.8,
+                  width: sizeOf.width * .8,
                   height: 48,
                   style: ElevatedButton.styleFrom(
                       backgroundColor: LabClinicasTheme.orangeColor,
                       fixedSize: const Size.fromHeight(48)),
-                  onPressed: () {},
+                  onPressed: () async {
+                    final nav = Navigator.of(context);
+
+                    final foto =
+                        await cameraController.takePicture().asyncLoader();
+
+                    nav.pushNamed(
+                      '/self-service/documents/scan/confirm',
+                      arguments: foto,
+                    );
+                  },
                   label: 'TIRAR FOTO',
                 ),
               ],

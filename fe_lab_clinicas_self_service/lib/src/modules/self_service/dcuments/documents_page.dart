@@ -102,8 +102,7 @@ class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
                               .pushNamed('/self-service/documents/scan');
                           if (filePath != null && filePath != '') {
                             selfServiceController.registerDocument(
-                                DocumentType.medicalOrder,
-                                filePath.toString());
+                                DocumentType.medicalOrder, filePath.toString());
                             setState(() {});
                           }
                         },
@@ -115,18 +114,21 @@ class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
                   height: 24,
                 ),
                 Visibility(
-                  visible: totalMedicalOrder > 0 && totalHealthInsuranceCard > 0,
+                  visible:
+                      totalMedicalOrder > 0 && totalHealthInsuranceCard > 0,
                   child: Row(
                     children: [
                       Expanded(
                         child: AppDefaultEspecialButton(
                           sizeBoxOn: false,
                           style: OutlinedButton.styleFrom(
-                              foregroundColor: Colors.red,
-                              side: const BorderSide(color: Colors.red),
-                              fixedSize: const Size.fromHeight(48)),
+                            foregroundColor: Colors.red,
+                            side: const BorderSide(color: Colors.red),
+                            fixedSize: const Size.fromHeight(48),
+                          ),
                           onPressed: () {
                             selfServiceController.clearDocuments();
+                            setState(() {});
                           },
                           label: 'REMOVER TODAS',
                           tipoBotao: false,
@@ -141,7 +143,9 @@ class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
                           style: ElevatedButton.styleFrom(
                               backgroundColor: LabClinicasTheme.orangeColor,
                               fixedSize: const Size.fromHeight(48)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/self-service/done');
+                          },
                           label: 'FINALIZAR',
                         ),
                       ),
@@ -155,5 +159,4 @@ class _DocumentsPageState extends State<DocumentsPage> with MessageViewMixin {
       ),
     );
   }
-
 }
