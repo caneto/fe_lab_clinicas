@@ -11,7 +11,7 @@ class DonePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sizeOf = MediaQuery.sizeOf(context);
-
+    
     return Scaffold(
       body: Align(
         alignment: Alignment.topCenter,
@@ -46,10 +46,10 @@ class DonePage extends StatelessWidget {
                     color: LabClinicasTheme.orangeColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Text(
-                    'BG38232', //selfServiceController.password,
+                  child: Text(
+                    selfServiceController.password,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontSize: 24,
                         fontWeight: FontWeight.bold),
@@ -108,7 +108,9 @@ class DonePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: LabClinicasTheme.orangeColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    selfServiceController.restartProgress();
+                  },
                   label: 'FINALIZAR',
                 ),
               ],

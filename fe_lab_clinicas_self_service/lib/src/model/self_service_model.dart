@@ -6,20 +6,20 @@ enum DocumentType { healthInsuranceCard, medicalOrder }
 final class SelfServiceModel {
   const SelfServiceModel({
     this.name,
-    this.lastname,
+    this.lastName,
     this.patient,
     this.documents,
   });
 
   final String? name;
-  final String? lastname;
+  final String? lastName;
   final PatientModel? patient;
   final Map<DocumentType, List<String>>? documents;
 
   SelfServiceModel clear() {
     return copyWith(
       name: () => null,
-      lastname: () => null,
+      lastName: () => null,
       patient: () => null,
       documents: () => null,
     );
@@ -27,13 +27,13 @@ final class SelfServiceModel {
 
   SelfServiceModel copyWith({
     ValueGetter<String?>? name,
-    ValueGetter<String?>? lastname,
+    ValueGetter<String?>? lastName,
     ValueGetter<PatientModel?>? patient,
     ValueGetter<Map<DocumentType, List<String>>?>? documents,
   }) {
     return SelfServiceModel(
       name: name != null ? name() : this.name,
-      lastname: lastname != null ? lastname() : this.lastname,
+      lastName: lastName != null ? lastName() : this.lastName,
       patient: patient != null ? patient() : this.patient,
       documents: documents != null ? documents() : this.documents,
     );
