@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
-import 'package:fe_lab_clinicas_self_service/src/core/widget/app_default_especial_button.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/dcuments/scan_confirm/documents_scan_confirm_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';
 import 'package:flutter/material.dart';
