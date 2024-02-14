@@ -1,5 +1,6 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:validatorless/validatorless.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,6 +57,9 @@ class _HomePageState extends State<HomePage> {
                 AppDefaultTextformfield(
                   title: "Numero do guiche",
                   hintText: 'Numero do guiche',
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   controller: _deskNumberEC,
                   onFieldSubmitted: (_) => _enterButton(),
                   validator: Validatorless.multiple([
