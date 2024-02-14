@@ -37,7 +37,7 @@ class _WhoIAmPageState extends State<WhoIAmPage> {
         selfServiceController.clearForm();
       },
       child: Scaffold(
-        appBar: LabClinicasCoreAppBar(
+        appBar: LabClinicasAppBar(
           actions: [
             PopupMenuButton(
               child: const IconPopupMenuWidget(),

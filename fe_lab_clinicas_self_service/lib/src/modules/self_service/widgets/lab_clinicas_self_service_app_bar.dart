@@ -4,7 +4,7 @@ import 'package:flutter_getit/flutter_getit.dart';
 
 import '../self_service_controller.dart';
 
-class LabClinicasSelfServiceAppBar extends LabClinicasCoreAppBar {
+class LabClinicasSelfServiceAppBar extends LabClinicasAppBar {
   LabClinicasSelfServiceAppBar({super.key})
       : super(
           actions: [

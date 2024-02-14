@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     final sizeOf = MediaQuery.sizeOf(context);
 
     return Scaffold(
-      appBar: LabClinicasCoreAppBar(
+      appBar: LabClinicasAppBar(
         actions: [
           PopupMenuButton(
             child: const IconPopupMenuWidget(),

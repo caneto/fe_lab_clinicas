@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LabClinicasCoreAppBar extends AppBar {
-  LabClinicasCoreAppBar({super.key, super.actions})
+class LabClinicasAppBar extends AppBar {
+  LabClinicasAppBar({super.key, super.actions})
       : super(
           toolbarHeight: 72,
           backgroundColor: Colors.transparent,
