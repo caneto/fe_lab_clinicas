@@ -1,6 +1,8 @@
+import 'package:fe_lab_clinicas_adm/src/pages/home/home_controller.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_getit/flutter_getit.dart';
 import 'package:validatorless/validatorless.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,9 +12,16 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with MessageViewMixin {
   final _formKey = GlobalKey<FormState>();
   final _deskNumberEC = TextEditingController();
+  final controller = Injector.get<HomeController>();
+
+  @override
+  void initState() {
+    messageListener(controller);
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -91,7 +100,7 @@ class _HomePageState extends State<HomePage> {
 
     if (formValid) {
       FocusScope.of(context).unfocus();
-      //   controller.login(_emailEC.text, _passwordEC.text);
+      controller.startService(int.parse(_deskNumberEC.text));
     }
   }
 }
