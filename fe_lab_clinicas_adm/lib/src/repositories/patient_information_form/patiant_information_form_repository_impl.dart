@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:fe_lab_clinicas_adm/src/models/patient_information_form_model.dart';
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
@@ -26,21 +28,33 @@ class PatiantInformationFormRepositoryImpl
 
     final formData = data.first;
     final updateStatusResult =
-        updateStatus(formData['id'], PatiantInformationFormStatus.checkIn);
+        await updateStatus(formData['id'], PatiantInformationFormStatus.checkIn);
 
-    switch(updateStatusResult) {
+    switch (updateStatusResult) {
       case Left(value: final exception):
-        Left(exception);
+        return Left(exception);
       case Right():
         formData['status'] = PatiantInformationFormStatus.checkIn.id;
-        formData['patient'] =
+        formData['patient'] = await _getPatient(formData.id);
+        return Right(PatientInformationFormModel.fromJson(formData));
     }
   }
 
   @override
   Future<Either<RepositoryException, Unit>> updateStatus(
-      String id, PatianInformationFormStatus status) {
-    // TODO: implement updateStatus
-    throw UnimplementedError();
+      String id, PatiantInformationFormStatus status) async {
+    try {
+      await restClient.auth
+          .put('/patientInformationForm/$id', data: {'status': status.id});
+      return Right(unit);
+    } on DioException catch (e, s) {
+      log('Erro ao atualizar status do form', error: e, stackTrace: s);
+      return Left(RepositoryException());
+    }
+  }
+
+  Future<Map<String, dynamic>> _getPatient(String id) async {
+    final Response(:data) = await restClient.auth.get('/patient/$id');
+    return data;
   }
 }
