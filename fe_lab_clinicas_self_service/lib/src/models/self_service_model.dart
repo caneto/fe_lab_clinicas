@@ -1,4 +1,4 @@
-import 'package:fe_lab_clinicas_self_service/src/model/patient_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/models/patient_model.dart';
 import 'package:flutter/material.dart';
 
 enum DocumentType { healthInsuranceCard, medicalOrder }

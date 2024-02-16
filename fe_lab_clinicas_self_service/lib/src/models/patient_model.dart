@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:fe_lab_clinicas_self_service/src/model/patient_address_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/models/patient_address_model.dart';
 
 part 'patient_model.g.dart';
 

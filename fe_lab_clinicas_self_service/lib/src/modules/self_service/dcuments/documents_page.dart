@@ -1,5 +1,5 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
-import 'package:fe_lab_clinicas_self_service/src/model/self_service_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/models/self_service_model.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/dcuments/widgets/document_box_widget.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/self_service_controller.dart';
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';

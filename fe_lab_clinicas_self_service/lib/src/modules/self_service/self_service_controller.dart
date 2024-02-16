@@ -3,8 +3,8 @@ import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:signals_flutter/signals_flutter.dart';
 
-import 'package:fe_lab_clinicas_self_service/src/model/patient_model.dart';
-import 'package:fe_lab_clinicas_self_service/src/model/self_service_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/models/patient_model.dart';
+import 'package:fe_lab_clinicas_self_service/src/models/self_service_model.dart';
 import 'package:fe_lab_clinicas_self_service/src/repositories/information_form/information_form_repository.dart';
 
 enum FormSteps {
