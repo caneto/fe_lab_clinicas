@@ -31,7 +31,7 @@ class AttendantDeskAssignmentRepositoryImpl
   Future<Either<RepositoryException, Unit>> _clearDeskByUser() async {
     try {
       final desk = await _getDeskByUser();
-      
+
       if (desk != null) {
         await restClient.auth.delete('/attendantDeskAssignment/${desk.id}');
       }
@@ -60,5 +60,20 @@ class AttendantDeskAssignmentRepositoryImpl
     }
 
     return null;
+  }
+
+  @override
+  Future<Either<RepositoryException, int>> getDeskAssignment() async {
+    try {
+      final Response(data: List(first: data)) = await restClient.auth
+          .get('/attendantDeskAssignment', queryParameters: {
+        'user_id': '#userAuthRef',
+      });
+
+      return Right(data['desk_number']);
+    } on DioException catch (e,s) {
+      log('Erro ao buscar numero do guichê', error: e, stackTrace: s);
+      return Left(RepositoryException());
+    }
   }
 }
