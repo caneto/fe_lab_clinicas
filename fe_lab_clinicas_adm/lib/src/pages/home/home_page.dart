@@ -17,13 +17,14 @@ class _HomePageState extends State<HomePage> with MessageViewMixin {
   final _formKey = GlobalKey<FormState>();
   final _deskNumberEC = TextEditingController();
   final controller = Injector.get<HomeController>();
+  late final EffectCleanup effectCleanup;
 
   @override
   void initState() {
     messageListener(controller);
-    effect(() {
+    effectCleanup = effect(() {
       if(controller.informationForm != null) {
-        print('Paciente carregado!!!');
+        Navigator.of(context).pushReplacementNamed('/pre-checkin', arguments: controller.informationForm);
       }
     });
     super.initState();
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> with MessageViewMixin {
   @override
   void dispose() {
     _deskNumberEC.dispose();
-    //effectCleanup();
+    effectCleanup();
     super.dispose();
   }
 

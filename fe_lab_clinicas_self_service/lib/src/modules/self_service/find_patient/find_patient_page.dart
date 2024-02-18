@@ -20,17 +20,12 @@ class _FindPatientPageState extends State<FindPatientPage> with MessageViewMixin
   final _formKey = GlobalKey<FormState>();
   final _documentEC = TextEditingController();
   final controller = Injector.get<FindPatientController>();
-
-  @override
-  void dispose() {
-    _documentEC.dispose();
-    super.dispose();
-  }
-
+  late final EffectCleanup effectCleanup;
+  
   @override
   void initState() {
     messageListener(controller);
-    effect(() {
+    effectCleanup = effect(() {
       final FindPatientController(:patient, :patientNotFound) = controller;
       if(patient != null || patientNotFound != null) {
         Injector.get<SelfServiceController>().goToFormPatient(patient);
@@ -38,6 +33,14 @@ class _FindPatientPageState extends State<FindPatientPage> with MessageViewMixin
     });
     super.initState();
   }
+
+  @override
+  void dispose() {
+    _documentEC.dispose();
+    effectCleanup();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {

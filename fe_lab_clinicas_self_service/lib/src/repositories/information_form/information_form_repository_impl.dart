@@ -31,7 +31,7 @@ class InformationFormRepositoryImpl implements InformationFormRepository {
       await restClient.auth.post('/patientInformationForm', data: {
         'patient_id': patientId,
         'health_insurance_card': healthInsuranceCardDocs,
-        'medical_Order': medicalOrderDocs,
+        'medical_order': medicalOrderDocs,
         'password': '$name, $lastName',
         'date_created': DateTime.now().toIso8601String(),
         'status': 'Waiting',

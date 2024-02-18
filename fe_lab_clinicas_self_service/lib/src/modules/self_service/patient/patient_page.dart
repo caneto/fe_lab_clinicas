@@ -23,6 +23,7 @@ class _PatientPageState extends State<PatientPage>
   final _formKey = GlobalKey<FormState>();
   final selfServiceController = Injector.get<SelfServiceController>();
   final PatientController controller = Injector.get<PatientController>();
+  late final EffectCleanup effectCleanup;
 
   late bool patientFound;
   late bool enableForm;
@@ -36,7 +37,7 @@ class _PatientPageState extends State<PatientPage>
     patientFound = patient != null;
     enableForm = !patientFound;
     initializeForm(patient);
-    effect(() {
+    effectCleanup = effect(() {
       if (controller.nextStep) {
         selfServiceController.updatePatientAndDocument(controller.patient);
       }
@@ -48,6 +49,7 @@ class _PatientPageState extends State<PatientPage>
   @override
   void dispose() {
     disposeForm();
+    effectCleanup();
     super.dispose();
   }
 

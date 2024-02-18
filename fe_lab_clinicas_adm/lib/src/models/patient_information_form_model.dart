@@ -18,7 +18,7 @@ class PatientInformationFormModel {
   PatientInformationFormModel({
     required this.id,
     required this.patient,
-    required this.healthInseranceCard,
+    required this.healthInsuranceCard,
     required this.medicalOrders,
     required this.password,
     required this.dateCreated,
@@ -27,8 +27,8 @@ class PatientInformationFormModel {
 
   final String id;
   final PatientModel patient;
-  @JsonKey(name: 'health_inserance_card')
-  final String healthInseranceCard;
+  @JsonKey(name: 'health_insurance_card')
+  final String healthInsuranceCard;
   @JsonKey(name: 'medical_order')
   final List<String> medicalOrders;
   final String password;
