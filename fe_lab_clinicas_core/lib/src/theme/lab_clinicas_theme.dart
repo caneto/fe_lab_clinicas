@@ -72,6 +72,12 @@ final class LabClinicasTheme {
     fontWeight: FontWeight.w900,
   );
 
+  static const titleStyleNormal = TextStyle(
+    color: blueColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
+
   static const titleSmallStyle = TextStyle(
     color: blueColor,
     fontSize: 24,
