@@ -22,7 +22,7 @@ class _CheckinPageState extends State<CheckinPage> with MessageViewMixin {
   @override
   void initState() {
     messageListener(controller);
-    effect(() {
+    effectCleanup = effect(() {
       if (controller.endProcess()) {
         Navigator.of(context).pushReplacementNamed('/end-checkin');
       }
