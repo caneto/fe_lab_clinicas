@@ -4,7 +4,6 @@ export 'src/fp/either.dart';
 export 'src/fp/nil.dart';
 export 'src/fp/unit.dart';
 export 'src/helpers/messages.dart';
-export 'src/restClient/rest_client.dart';
 export 'src/constants/local_storage_key.dart';
 export 'src/lab_clinicas_core_config.dart';
 export 'src/exceptions/auth_exception.dart';
@@ -15,3 +14,6 @@ export 'src/widgets/lab_clinicas_app_bar.dart';
 export 'src/widgets/icon_popup_menu_widget.dart';
 export 'src/widgets/app_default_especial_button.dart';
 export 'src/widgets/app_default_textformfield.dart';
+
+export 'src/restClient/rest_client.dart'
+  if(dart.library.html) 'src/restClient/rest_client_web.dart';
