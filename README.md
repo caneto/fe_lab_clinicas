@@ -38,9 +38,9 @@
 
 <h2>🛠️ Funcionalidades e Tecnologias Estudadas</h2>
 <p>
-- FE_LAB_CLINICAS_CORE - <xxx>O A estrutura base do Projeto</xxx>
-- FE_LAB_CLINICAS_SELF_SERVICE - <xxxx>Sistema de Auto Atendimento para a Clinica em Tablet</xxxx>
-- FE_LAB_CLINICAS_ADM - <xxx>Sistema de Atendimento ao Paciente, em Desktop usado pelos Guiches</xxx>
+- FE_LAB_CLINICAS_CORE - <xxx>O A estrutura base do Projeto</xxx><br/>
+- FE_LAB_CLINICAS_SELF_SERVICE - <xxxx>Sistema de Auto Atendimento para a Clinica em Tablet</xxxx><br/>
+- FE_LAB_CLINICAS_ADM - <xxx>Sistema de Atendimento ao Paciente, em Desktop usado pelos Guiches</xxx><br/>
 </p>
 
 <h2>🤯 Desafios e aprendizado ao longo do caminho</h2>
