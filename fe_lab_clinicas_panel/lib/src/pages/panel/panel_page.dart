@@ -1,5 +1,6 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
 import 'package:fe_lab_clinicas_panel/src/pages/panel/widgets/panel_principal_widget.dart';
+import 'package:fe_lab_clinicas_panel/src/pages/panel/widgets/password_tile.dart';
 import 'package:flutter/material.dart';
 
 class PanelPage extends StatelessWidget {
@@ -14,13 +15,13 @@ class PanelPage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-               height: 32,
+              height: 32,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: sizeOf.width *.4,  
+                  width: sizeOf.width * .4,
                   child: const PanelPrincipalWidget(
                     passwordLabel: 'Senha Anterior',
                     password: 'BG8523',
@@ -30,10 +31,10 @@ class PanelPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                   width: 20,
+                  width: 20,
                 ),
                 SizedBox(
-                  width: sizeOf.width *.4,  
+                  width: sizeOf.width * .5,
                   child: const PanelPrincipalWidget(
                     passwordLabel: 'Chamando Senha',
                     password: 'BG8523',
@@ -45,15 +46,30 @@ class PanelPage extends StatelessWidget {
               ],
             ),
             const SizedBox(
-               height: 40,
+              height: 40,
             ),
             const Divider(
               color: LabClinicasTheme.orangeColor,
             ),
             const SizedBox(
-               height: 30,
+              height: 30,
             ),
-            const Text('Últimos chamados')
+            const Text(
+              'Últimos chamados',
+              style: TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: LabClinicasTheme.orangeColor),
+            ),
+            const Wrap(
+              runAlignment: WrapAlignment.center,
+              spacing: 10,
+              runSpacing: 10,
+              children: [
+                PasswordTile(),
+                PasswordTile(),
+              ],
+            )
           ],
         ),
       ),

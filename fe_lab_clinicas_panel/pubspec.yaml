@@ -41,9 +41,11 @@ dependencies:
   asyncstate: ^2.1.1-dev.1
   shared_preferences: ^2.2.2
   validatorless: ^1.2.3
+  intl: ^0.18.1
   dio: ^5.4.0
   signals_flutter: ^3.0.0
   json_annotation: ^4.8.1
+  web_socket_channel: ^2.4.0
 
 
 dev_dependencies:
