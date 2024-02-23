@@ -14,7 +14,11 @@ class PanelCheckinRepositoryImpl implements PanelCheckinRepository {
   final RestClient restClient;
 
   @override
-  Stream<List<PanelCheckinModel>> getTodayPanel(WebSocketChannel channel) {}
+  Stream<List<PanelCheckinModel>> getTodayPanel(WebSocketChannel channel) async* {
+    yield await requestData();
+    yield* channel.stream.asyncMap((_) async => requestData());
+  }
+
 
   @override
   ({WebSocketChannel channel, Function dispose}) openChannelSocket() {
@@ -40,7 +44,4 @@ class PanelCheckinRepositoryImpl implements PanelCheckinRepository {
         .toList();
   }
 
-  @override
-  // TODO: implement restClient
-  RestClient get restClient => throw UnimplementedError();
 }
