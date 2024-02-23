@@ -1,17 +1,46 @@
+import 'package:dio/dio.dart';
+import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
+import 'package:fe_lab_clinicas_panel/src/core/env.dart';
 import 'package:fe_lab_clinicas_panel/src/models/panel_checkin_model.dart';
+import 'package:intl/intl.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 import './panel_checkin_repository.dart';
 
 class PanelCheckinRepositoryImpl implements PanelCheckinRepository {
+
+  PanelCheckinRepositoryImpl({required this.restClient});
+
+  final RestClient restClient;
+
   @override
-  Stream<List<PanelCheckinModel>> getTodayPanel(WebSocketChannel channel) {
-  }
+  Stream<List<PanelCheckinModel>> getTodayPanel(WebSocketChannel channel) {}
 
   @override
   ({WebSocketChannel channel, Function dispose}) openChannelSocket() {
-    // TODO: implement openChannelSocket
-    throw UnimplementedError();
+    final channel = WebSocketChannel.connect(
+        Uri.parse('${Env.backendBaseUrl}?tables=painelCheckin'));
+
+    return (
+      channel: channel,
+      dispose: () {
+        channel.sink.close();
+      }
+    );
   }
 
+  Future<List<PanelCheckinModel>> requestData() async {
+    final dateFormat = DateFormat('y-MM-d');
+    final Response(:List data) = await restClient.auth.get('/painelCheckin',
+        queryParameters: {'time_called': dateFormat.format(DateTime.now())});
+
+    return data.reversed
+        .take(7)
+        .map((e) => PanelCheckinModel.fromJson(e))
+        .toList();
+  }
+
+  @override
+  // TODO: implement restClient
+  RestClient get restClient => throw UnimplementedError();
 }
