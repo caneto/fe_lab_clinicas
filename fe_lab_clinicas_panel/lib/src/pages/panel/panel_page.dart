@@ -43,7 +43,17 @@ class PanelPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(
+               height: 40,
+            ),
+            const Divider(
+              color: LabClinicasTheme.orangeColor,
+            ),
+            const SizedBox(
+               height: 30,
+            ),
+            const Text('Últimos chamados')
           ],
         ),
       ),
