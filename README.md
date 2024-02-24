@@ -33,7 +33,7 @@
 <h2>📦 Assets</h2>
 
 - <a href="https://github.com/caneto/fe_lab_clinicas/blob/main/FE%20LAB%20CLINICA.postman_collection.json">Coleção do PostMan</a>
-- UI Design criado para o evento: <a href="https://github.com/caneto/fe_lab_clinicas/blob/main/DWBarbeshop.fig">**Flutter Experience**</a>
+- UI Design criado para o evento: <a href="https://github.com/caneto/fe_lab_clinicas/blob/main/FlutterExperienceLabClinicas.fig">**Flutter Experience**</a>
 ---   
 
 <h2>🛠️ Funcionalidades e Tecnologias Estudadas</h2>
