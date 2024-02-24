@@ -41,13 +41,14 @@
 - FE_LAB_CLINICAS_CORE - <xxx>O A estrutura base do Projeto</xxx><br/>
 - FE_LAB_CLINICAS_SELF_SERVICE - <xxxx>Sistema de Auto Atendimento para a Clinica em Tablet</xxxx><br/>
 - FE_LAB_CLINICAS_ADM - <xxx>Sistema de Atendimento ao Paciente, em Desktop usado pelos Guiches</xxx><br/>
+- FE_LAB_CLINICAS_PANEL - <xxx>Sistema de Visualização de Chamadas em TV</xxx><br/>   
 </p>
 
 <h2>🤯 Desafios e aprendizado ao longo do caminho</h2>
 
-Sem dúvida, o maior aprendizado foi o Riverpod; Percebi que é muito interessante para gerenciar o estado de uma aplicação, indo além em pontos que podem ser cruciais (como poder ter vários provedores do mesmo tipo, realizar o descarte quando ela não for mais utilizada, entre outras coisas) .
+Sem dúvida, o maior aprendizado foi o Signals, Percebi que é muito interessante para gerenciar o estado de uma aplicação, indo além em pontos que podem ser cruciais (como poder ter vários provedores do mesmo tipo, realizar o descarte quando ela não for mais utilizada, entre outras coisas) .
 
-Além disso, foi muito legal aprender mais sobre os poderes e usos do Dart 3 na prática, como o novo `switch` e o uso do `pattern match`; que se encaixam muito bem e tornam o código mais objetivo. Outro ponto que foi muito interessante foi o `Either` usado sem nenhuma dependência externa. Você pode usar programação funcional com `correspondência de padrões` para lidar com casos de erro e sucesso.
+Além disso, foi muito legal aprender mais sobre os poderes e usos do Dart 3.2 na prática, como o novo `switch` e o uso do `pattern match`; que se encaixam muito bem e tornam o código mais objetivo. Outro ponto que foi muito interessante foi o `Either` usado sem nenhuma dependência externa. Você pode usar programação funcional com `correspondência de padrões` para lidar com casos de erro e sucesso.
 
 Vários outros aprendizados foram adquiridos e também reforçados; além de refatorações e melhorias de código feitas ao longo do caminho. Sempre há algo a ser melhorado e aprendido. 🚀
 </p>
