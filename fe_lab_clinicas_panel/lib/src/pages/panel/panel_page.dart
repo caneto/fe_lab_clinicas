@@ -1,14 +1,56 @@
 import 'package:fe_lab_clinicas_core/fe_lab_clinicas_core.dart';
+import 'package:fe_lab_clinicas_panel/src/models/panel_checkin_model.dart';
+import 'package:fe_lab_clinicas_panel/src/pages/panel/panel_controller.dart';
 import 'package:fe_lab_clinicas_panel/src/pages/panel/widgets/panel_principal_widget.dart';
 import 'package:fe_lab_clinicas_panel/src/pages/panel/widgets/password_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_getit/flutter_getit.dart';
+import 'package:signals_flutter/signals_flutter.dart';
 
-class PanelPage extends StatelessWidget {
+class PanelPage extends StatefulWidget {
   const PanelPage({super.key});
+
+  @override
+  State<PanelPage> createState() => _PanelPageState();
+}
+
+class _PanelPageState extends State<PanelPage> {
+  final controller = Injector.get<PanelController>();
+
+  @override
+  void initState() {
+    controller.listenerPanel();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     var sizeOf = MediaQuery.sizeOf(context);
+
+    final PanelCheckinModel? current;
+    final PanelCheckinModel? lastCall;
+    final List<PanelCheckinModel>? others;
+
+    final listPanel = controller.panelData.watch(context);
+
+    current = listPanel.firstOrNull;
+    if (listPanel.isNotEmpty) {
+      listPanel.removeAt(0);
+    }
+
+    lastCall = listPanel.firstOrNull;
+    if (listPanel.isNotEmpty) {
+      listPanel.removeAt(0);
+    }
+
+    others = listPanel;
+
     return Scaffold(
       appBar: LabClinicasAppBar(),
       body: SingleChildScrollView(
@@ -20,29 +62,33 @@ class PanelPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: sizeOf.width * .4,
-                  child: const PanelPrincipalWidget(
-                    passwordLabel: 'Senha Anterior',
-                    password: 'BG8523',
-                    deskNumber: '03',
-                    labelColor: LabClinicasTheme.blueColor,
-                    buttonColor: LabClinicasTheme.orangeColor,
-                  ),
-                ),
+                lastCall != null
+                    ? SizedBox(
+                        width: sizeOf.width * .4,
+                        child: PanelPrincipalWidget(
+                          passwordLabel: 'Senha Anterior',
+                          password: lastCall.password,
+                          deskNumber: lastCall.attendantDesk.toString().padLeft(2, '0'),
+                          labelColor: LabClinicasTheme.blueColor,
+                          buttonColor: LabClinicasTheme.orangeColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
                 const SizedBox(
                   width: 20,
                 ),
-                SizedBox(
-                  width: sizeOf.width * .5,
-                  child: const PanelPrincipalWidget(
-                    passwordLabel: 'Chamando Senha',
-                    password: 'BG8523',
-                    deskNumber: '03',
-                    labelColor: LabClinicasTheme.orangeColor,
-                    buttonColor: LabClinicasTheme.blueColor,
-                  ),
-                ),
+                current != null
+                    ? SizedBox(
+                        width: sizeOf.width * .5,
+                        child: PanelPrincipalWidget(
+                          passwordLabel: 'Chamando Senha',
+                          password: current.password,
+                          deskNumber: current.attendantDesk.toString().padLeft(2, '0'),
+                          labelColor: LabClinicasTheme.orangeColor,
+                          buttonColor: LabClinicasTheme.blueColor,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
               ],
             ),
             const SizedBox(
@@ -61,14 +107,15 @@ class PanelPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: LabClinicasTheme.orangeColor),
             ),
-            const Wrap(
+            Wrap(
               runAlignment: WrapAlignment.center,
               spacing: 10,
               runSpacing: 10,
-              children: [
-                PasswordTile(),
-                PasswordTile(),
-              ],
+              children: others
+                  .map((p) => PasswordTile(
+                        password: p.password, deskNumber: p.attendantDesk.toString().padLeft(2, '0'),
+                      ))
+                  .toList(),
             )
           ],
         ),

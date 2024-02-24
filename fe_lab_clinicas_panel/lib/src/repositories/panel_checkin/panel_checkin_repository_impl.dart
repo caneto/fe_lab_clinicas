@@ -8,22 +8,21 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import './panel_checkin_repository.dart';
 
 class PanelCheckinRepositoryImpl implements PanelCheckinRepository {
-
   PanelCheckinRepositoryImpl({required this.restClient});
 
   final RestClient restClient;
 
   @override
-  Stream<List<PanelCheckinModel>> getTodayPanel(WebSocketChannel channel) async* {
+  Stream<List<PanelCheckinModel>> getTodayPanel(
+      WebSocketChannel channel) async* {
     yield await requestData();
     yield* channel.stream.asyncMap((_) async => requestData());
   }
 
-
   @override
   ({WebSocketChannel channel, Function dispose}) openChannelSocket() {
     final channel = WebSocketChannel.connect(
-        Uri.parse('${Env.backendBaseUrl}?tables=painelCheckin'));
+        Uri.parse('${Env.wsBackendBaseUrl}?tables=painelCheckin'));
 
     return (
       channel: channel,
@@ -34,14 +33,15 @@ class PanelCheckinRepositoryImpl implements PanelCheckinRepository {
   }
 
   Future<List<PanelCheckinModel>> requestData() async {
-    final dateFormat = DateFormat('y-MM-d');
-    final Response(:List data) = await restClient.auth.get('/painelCheckin',
-        queryParameters: {'time_called': dateFormat.format(DateTime.now())});
+    final dateFormat = DateFormat('y-MM-dd');
+    final Response(:List data) =
+        await restClient.auth.get('/painelCheckin', queryParameters: {
+      'time_called': dateFormat.format(DateTime.now()),
+    });
 
     return data.reversed
         .take(7)
         .map((e) => PanelCheckinModel.fromJson(e))
         .toList();
   }
-
 }
