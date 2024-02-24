@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "3eb87b1e-7d11-4f21-97ce-2dee1c78e9f6",
+		"name": "FE LAB CLINICA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3209702"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login Simple User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body has access_token\", function() {\r",
+									"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+									"    const response = pm.response.json();\r",
+									"    pm.environment.set(\"accessToken\", response.access_token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"at1gmail.com\",\r\n    \"password\": \"123123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Adm User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Body has access_token\", function() {\r",
+									"    pm.expect(pm.response.text()).to.include(\"access_token\");\r",
+									"    const response = pm.response.json();\r",
+									"    pm.environment.set(\"accessToken\", response.access_token);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"terminal1@gmail.com\",\r\n    \"password\": \"123123\",\r\n    \"admin\": true\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"at1gmail.com\",\r\n    \"password\": \"123123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Adm Users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"terminal1@gmail.com\",\r\n    \"password\": \"123123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/adm_users",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"adm_users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient",
+			"item": [
+				{
+					"name": "Find Patient",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/patients",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient Register",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
