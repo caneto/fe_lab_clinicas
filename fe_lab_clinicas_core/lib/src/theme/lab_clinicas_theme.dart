@@ -7,8 +7,9 @@ final class LabClinicasTheme {
   static const lightGreyColor = Color(0xFFFFEFE9);
 
   static final _defaultInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
-      borderSide: const BorderSide(color: lightOrangeColor));
+    borderRadius: BorderRadius.circular(16),
+    borderSide: const BorderSide(color: lightOrangeColor),
+  );
 
   static final lightTheme = ThemeData(
     useMaterial3: true,
@@ -33,22 +34,21 @@ final class LabClinicasTheme {
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-        backgroundColor: Colors.white,
-        side: const BorderSide(
-          color: blueColor,
-        ),
-        foregroundColor: blueColor,
-          shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        textStyle: const TextStyle(
-          fontFamily: 'Montserrat',
-          fontSize: 14,
-          fontWeight: FontWeight.w700,
-        ),
-      )
-    ),
+        style: OutlinedButton.styleFrom(
+      backgroundColor: Colors.white,
+      side: const BorderSide(
+        color: blueColor,
+      ),
+      foregroundColor: blueColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      textStyle: const TextStyle(
+        fontFamily: 'Montserrat',
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+      ),
+    )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
