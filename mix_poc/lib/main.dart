@@ -10,8 +10,12 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   static final _defaultInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(16),
-      borderSide: const BorderSide(color: BaseStyle.lightOrangeColor));
+    borderRadius: BorderRadius.circular(7),
+    borderSide: const BorderSide(
+      color: BaseStyle.orangeColor,
+      style: BorderStyle.solid
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,9 @@ class MyApp extends StatelessWidget {
           floatingLabelStyle: const TextStyle(
               color: BaseStyle.blueColor, fontWeight: FontWeight.w600),
           border: _defaultInputBorder,
-          enabledBorder: _defaultInputBorder,
+          enabledBorder: _defaultInputBorder.copyWith(
+            borderSide: const BorderSide(color: BaseStyle.blueColor),
+          ),
           focusedBorder: _defaultInputBorder,
           errorBorder: _defaultInputBorder.copyWith(
             borderSide: const BorderSide(color: Colors.red),
@@ -71,7 +77,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const LoginPage(),
+      home: LoginPage(),
     );
   }
 }
