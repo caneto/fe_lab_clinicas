@@ -44,27 +44,6 @@ class _DocumentsScanPageState extends State<DocumentsScanPage> {
                 border: Border.all(color: LabClinicasTheme.orangeColor)),
             child: Column(
               children: [
-                Image.asset('assets/images/cam_icon.png'),
-                const SizedBox(
-                  height: 15,
-                ),
-                const Text(
-                  'TIRAR A FOTO AGORA',
-                  style: LabClinicasTheme.titleSmallStyle,
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Text(
-                  'Posicione o documento dentro do quadrado abaixo e aperte o botão para tirar a foto',
-                  textAlign: TextAlign.center,
-                  style: LabClinicasTheme.subTitleSmallStyle.copyWith(
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
                 FutureBuilder(
                   future: cameraController.initialize(),
                   builder: (context, snapshot) {
