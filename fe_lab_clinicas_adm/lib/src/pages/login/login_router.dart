@@ -1,5 +1,3 @@
-
-import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
 
 import '../../repositories/user/user_repository.dart';
@@ -10,21 +8,14 @@ import 'login_controller.dart';
 import 'login_page.dart';
 
 class LoginRouter extends FlutterGetItPageRouter {
-  const LoginRouter({super.key});
-
-  @override
-  String get routeName => '/login';
-
-  @override
-  List<Bind<Object>> get bindings => [
-    Bind.lazySingleton<UserRepository>((i) => UserRepositoryImpl(restClient: i())),
-    Bind.lazySingleton<UserLoginService>((i) => UserLoginServiceImpl(userRepository: i())),
-    Bind.lazySingleton((i) => LoginController(loginService: i())),
-  ];
-
-  @override
-  WidgetBuilder get view => (_) => const LoginPage();
-  
-  
-  
+  LoginRouter()
+      : super(
+          name: '/login',
+          bindings: [
+            Bind.lazySingleton<UserRepository>((i) => UserRepositoryImpl(restClient: i())),
+            Bind.lazySingleton<UserLoginService>((i) => UserLoginServiceImpl(userRepository: i())),
+            Bind.lazySingleton((i) => LoginController(loginService: i())),
+          ],
+          builder: (_) => const LoginPage(),
+        );
 }

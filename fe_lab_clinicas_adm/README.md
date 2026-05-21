@@ -1,6 +1,6 @@
 # fe_lab_clinicas_adm
 
-# Projeto Flutter Desktop para Windows - Fevereiro de 2024
+# Projeto Flutter Desktop para Windows - Fevereiro de 2024 (Atualizado em Maio/2026)
 Um projeto Flutter Desktop Versão Windows com a funcionalidade de administrar Guichês de atendimento.
 Cliente/Paciente efetua cadastro diretamente no sistema utilizando a coleta de informações pelo tablet.
 Aparece os dados e senhas diretamente na tela de senhas em uma SmartTV.
@@ -24,20 +24,18 @@ Durante o evento pude notar uma evelução expressiva em meu nível de raciocín
 
 -  fe_lab_clinicas_core:                    // Meu Package próprio desenvolvido no evento,
 -    path: ../fe_lab_clinicas_core          // exclusivamente para ser usado em todas aplicações
--  cupertino_icons: ^1.0.6
+-  cupertino_icons: ^1.0.9
 -  asyncstate: ^2.1.1-dev.1
--  dotted_border: ^2.1.0
--  validatorless: ^1.2.3
--  signals_flutter: ^3.0.0
--  dio: ^5.4.0
--  shared_preferences: ^2.2.2
--  json_annotation: ^4.8.1
--  brasil_fields: ^1.14.2
--  camera: ^0.10.5+9
--  flutter_getit: ^2.0.0
+-  dotted_border: ^2.2.2
+-  validatorless: ^1.2.5
+-  signals_flutter: ^6.3.0
+-  dio: ^5.9.2
+-  shared_preferences: ^2.5.5
+-  json_annotation: ^4.12.0
+-  flutter_getit: ^3.0.1
 
--  flutter_lints: ^3.0.1
--  json_serializable: ^6.7.1
--  build_runner: ^2.4.8
+-  flutter_lints: ^6.0.0
+-  json_serializable: ^6.14.0
+-  build_runner: ^2.15.0
 
 
