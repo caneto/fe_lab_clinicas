@@ -1,10 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'panel_checkin_model.dart';
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
 
 PanelCheckinModel _$PanelCheckinModelFromJson(Map<String, dynamic> json) =>
     PanelCheckinModel(

@@ -92,8 +92,7 @@ class _LoginPageState extends State<LoginPage> with MessageViewMixin {
                       (_) {
                         return AppDefaultTextformfield(
                           title: 'Password',
-                          obscureControll:
-                              true, // habilita o obscure e seus funcões
+                          obscureControll: true,
                           obscureText: controller.obscurePassword,
                           controller: _passwordEC,
                           validator:

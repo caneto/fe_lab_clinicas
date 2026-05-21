@@ -22,8 +22,8 @@ Durante o evento pude notar uma evelução expressiva em meu nível de raciocín
 
 ## Packages utilizados nessa aplicação.
 
-- fe_lab_clinica_core:                   // Meu Package próprio desenvolvido no evento,
--    path: ../fe_lab_clinica_core        // exclusivamente para ser usado em todas aplicações
+- fe_lab_clinica_core:                   
+-    path: ../fe_lab_clinica_core        
 -  asyncstate: ^2.1.1-dev.1
 -  validatorless: ^1.2.3
 -  signals_flutter: ^3.0.0
