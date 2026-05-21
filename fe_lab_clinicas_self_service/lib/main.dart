@@ -31,16 +31,11 @@ class LabClinicasSelfServiceApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return LabClinicasCoreConfig(
       title: "Lab Clinicas Auto Atendimento",
-      binding: LabClinicasApplicationBinding(),
+      binding: LabClinicasApplicationBinding(_cameras),
       pagesBuilders: [
-        FlutterGetItPageBuilder(page: (_) => const SplashPage(), path: '/'),
+        FlutterGetItPageRouter(name: '/', builder: (_) => const SplashPage()),
       ],
       modules: [AuthModule(), HomeModule(), SelfServiceModule()],
-      didStart: (){
-        FlutterGetItBindingRegister.registerPermanentBinding('CAMERAS', [
-          Bind.lazySingleton((i) => _cameras),
-        ]);
-      },
     );
   }
 }
