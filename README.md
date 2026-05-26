@@ -24,7 +24,7 @@
 <p>
     Projeto desenvolvido no Flutter Experience | 1ª Edição, um evento de lançamento para a <a href="http://academiadoflutter.com.br/">Academia do Flutter (ADF)</a>, do <a href="https://github.com/rodrigorahman">Rodrigo Rahman</a>.<br><br>
     Durante todo este ultimas duas semans, por ser um aluno da ADF (desde Outubro/2022), consegui entender com mais facilidade certos conceitos que ainda estavam confusos para mim, como a parte do <a href="https://pub.dev/packages/signals_flutter">Signals Flutter</a>.<br>
-	Atualizado em Maio/2026<br> - Corrigido as erros nas atualizações, o projeto está 100% funcional a versão atual.
+	<b>Atualizado em Maio/2026</b><br> - Corrigido as erros nas atualizações, o projeto está 100% funcional a versão atual.
     <br>
 </p>
 
