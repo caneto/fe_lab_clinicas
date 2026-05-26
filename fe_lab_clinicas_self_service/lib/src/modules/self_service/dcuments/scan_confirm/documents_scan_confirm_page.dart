@@ -7,7 +7,6 @@ import 'package:fe_lab_clinicas_self_service/src/modules/self_service/dcuments/s
 import 'package:fe_lab_clinicas_self_service/src/modules/self_service/widgets/lab_clinicas_self_service_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_getit/flutter_getit.dart';
-import 'package:signals_flutter/signals_flutter.dart';
 
 class DocumentsScanConfirmPage extends StatelessWidget {
   final controller = Injector.get<DocumentsScanConfirmController>();
@@ -19,10 +18,7 @@ class DocumentsScanConfirmPage extends StatelessWidget {
     final sizeOf = MediaQuery.sizeOf(context);
     final foto = ModalRoute.of(context)!.settings.arguments as XFile;
 
-    controller.pathRemoteStorage.listen(context, () {
-      Navigator.of(context).pop();
-      Navigator.of(context).pop(controller.pathRemoteStorage.value);
-    });
+
 
     return Scaffold(
       appBar: LabClinicasSelfServiceAppBar(),
@@ -55,12 +51,13 @@ class DocumentsScanConfirmPage extends StatelessWidget {
                   child: SizedBox(
                     width: sizeOf.width * .48,
                     child: DottedBorder(
-                      dashPattern: const [1, 10, 1, 3],
-                      borderType: BorderType.RRect,
-                      strokeWidth: 4,
-                      radius: const Radius.circular(16),
-                      color: LabClinicasTheme.orangeColor,
-                      strokeCap: StrokeCap.square,
+                      options: RoundedRectDottedBorderOptions(
+                        dashPattern: const [1, 10, 1, 3],
+                        strokeWidth: 4,
+                        radius: const Radius.circular(16),
+                        color: LabClinicasTheme.orangeColor,
+                        strokeCap: StrokeCap.square,
+                      ),
                       child: Image.file(File(foto.path)),
                     ),
                   ),
@@ -98,12 +95,17 @@ class DocumentsScanConfirmPage extends StatelessWidget {
                             backgroundColor: LabClinicasTheme.blueColor,
                             fixedSize: const Size.fromHeight(48)),
                         onPressed: () async {
+                          final navigator = Navigator.of(context);
                           final imageBytes = await foto.readAsBytes();
                           final fileName = foto.name;
                           await controller.uploadImage(
                             imageBytes,
                             fileName,
                           );
+                          if (controller.pathRemoteStorage.value != null) {
+                            navigator.pop();
+                            navigator.pop(controller.pathRemoteStorage.value);
+                          }
                         },
                         label: 'SALVAR',
                       ),

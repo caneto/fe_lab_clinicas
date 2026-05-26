@@ -9,10 +9,10 @@ class FindPatientController with MessageStateMixin {
 
   final PatientRepository _patientRepository;
 
-  final _patientNotFound = ValueSignal<bool?>(null);
+  final _patientNotFound = signal<bool?>(null);
   bool? get patientNotFound => _patientNotFound();
 
-  final _patient = ValueSignal<PatientModel?>(null);
+  final _patient = signal<PatientModel?>(null);
   PatientModel? get patient => _patient();
 
   Future<void> findPatientByDocument(String document) async {
@@ -36,14 +36,14 @@ class FindPatientController with MessageStateMixin {
 
     batch(() {
       _patient.value = patient;
-      _patientNotFound.forceUpdate(patientNotFound);
+      _patientNotFound.value = patientNotFound;
     });
   }
 
   void continueWithoutDocument() {
     batch(() {
       _patient.value = null;
-      _patientNotFound.forceUpdate(true);
+      _patientNotFound.value = true;
     });
   }
 }

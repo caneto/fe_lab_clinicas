@@ -31,7 +31,7 @@ class _WhoIAmPageState extends State<WhoIAmPage> {
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, result) {
         _firstNameEC.text = '';
         _lastNameEC.text = '';
         selfServiceController.clearForm();

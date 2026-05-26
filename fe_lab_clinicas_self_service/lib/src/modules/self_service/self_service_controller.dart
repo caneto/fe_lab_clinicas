@@ -23,7 +23,7 @@ class SelfServiceController with MessageStateMixin {
     required this.informationFormRepository,
   });
   
-  final _step = ValueSignal(FormSteps.none);
+  final _step = signal(FormSteps.none);
   
   var _model = const SelfServiceModel();
   SelfServiceModel get model => _model;
@@ -33,12 +33,12 @@ class SelfServiceController with MessageStateMixin {
   FormSteps get step => _step();
 
   void startProcess() {
-    _step.forceUpdate(FormSteps.whoIAm);
+    _step.value = FormSteps.whoIAm;
   }
 
-  void setWhoIAmStepAndNext(String name, String lastnane) {
-    _model = _model.copyWith(name: () => name, lastName: () => lastnane);
-    _step.forceUpdate(FormSteps.findPatient);
+  void setWhoIAmStepAndNext(String name, String lastName) {
+    _model = _model.copyWith(name: () => name, lastName: () => lastName);
+    _step.value = FormSteps.findPatient;
   }
 
   void debug() {
@@ -56,17 +56,17 @@ class SelfServiceController with MessageStateMixin {
 
   void goToFormPatient(PatientModel? patient) {
     _model = _model.copyWith(patient: () => patient);
-    _step.forceUpdate(FormSteps.patient);
+    _step.value = FormSteps.patient;
   }
 
   void restartProgress() {
-    _step.forceUpdate(FormSteps.restart);
+    _step.value = FormSteps.restart;
     clearForm();
   }
 
   void updatePatientAndDocument(PatientModel? patient) {
     _model = _model.copyWith(patient: () => patient);
-    _step.forceUpdate(FormSteps.documents);
+    _step.value = FormSteps.documents;
   }
 
    void registerDocument(DocumentType type, String filePath) {
@@ -93,7 +93,7 @@ class SelfServiceController with MessageStateMixin {
         showError('Erro ao registrar atendimento');
       case Right<RepositoryException, Unit>():
         password = '${_model.name} ${_model.lastName}';
-        _step.forceUpdate(FormSteps.done);
+        _step.value = FormSteps.done;
     }
   }
 }

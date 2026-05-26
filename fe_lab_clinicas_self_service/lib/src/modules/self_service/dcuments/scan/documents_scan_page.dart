@@ -64,12 +64,13 @@ class _DocumentsScanPageState extends State<DocumentsScanPage> {
                               child: CameraPreview(
                                 cameraController,
                                 child: DottedBorder(
-                                  dashPattern: const [1, 10, 1, 3],
-                                  borderType: BorderType.RRect,
-                                  strokeWidth: 4,
-                                  radius: const Radius.circular(16),
-                                  color: LabClinicasTheme.orangeColor,
-                                  strokeCap: StrokeCap.square,
+                                  options: RoundedRectDottedBorderOptions(
+                                    dashPattern: const [1, 10, 1, 3],
+                                    strokeWidth: 4,
+                                    radius: const Radius.circular(16),
+                                    color: LabClinicasTheme.orangeColor,
+                                    strokeCap: StrokeCap.square,
+                                  ),
                                   child: const SizedBox.expand(),
                                 ),
                               ),
